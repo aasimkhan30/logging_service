@@ -1,0 +1,83 @@
+syntax = "proto3";
+package edu.ucsc.loggingservice;
+
+message LogEntry {
+  required string key = 1;
+  required string value = 2;
+  required string digest = 3;
+  repeated string tag = 4;
+  repeated string level = 5;
+}
+
+message HelloRequest {
+  string name = 1;
+  repeated string hobbies = 2;
+}
+message HelloResponse {
+  string greeting = 1;
+}
+
+message CreateLogRequest {
+  required LogEntry log = 1;
+}
+message CreateLogResponse {
+  bool success = 1;
+}
+
+message AccessLogRequest {
+  string key = 1;
+}
+message AccessLogResponse {
+  LogEntry log = 1;
+}
+
+message GetLedgerRequest {
+  repeated string tag = 1;
+}
+message GetLedgerResponse {
+  repeated LogEntry logs = 1;
+}
+
+message VerifyLogRequest {
+  required LogEntry log = 1;
+}
+message VerifyLogResponse {
+  string digest = 1;
+}
+
+message verifyLedgerRequest {
+  string tag = 1;
+}
+message verifyLedgerResponse {
+  string digest = 1;
+}
+
+message createTagRequest {
+  
+}
+message createTagResponse {
+
+}
+
+message UpdateTagRequest {
+
+}
+message UpdateTagResponse {
+
+}
+
+message DeleteTagRequest {
+
+}
+message DeleteTagResponse {
+
+}
+
+service LoggingService {
+  rpc greeting(HelloRequest) returns (HelloResponse);
+  rpc createLog(stream CreateLogRequest) returns (stream CreateLogResponse);
+  rpc accessLog(AccessLogRequest) returns (AccessLogResponse);
+  rpc getLedger(GetLedgerRequest) returns (GetLedgerResponse); 
+  rpc verifyLog(VerifyLogRequest) returns (VerifyLogResponse);
+  rpc verifyLedger(VerifyLogRequest) returns (VerifyLogResponse);
+}
