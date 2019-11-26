@@ -9,6 +9,19 @@ message LogEntry {
   repeated string level = 5;
 }
 
+message AccessInfo {
+  required string name = 1;
+  required boolean read = 2;
+  required boolean write = 3;
+  required boolean verify = 4;
+  required boolean modifyTag = 5;
+}
+
+message Tag {
+  required string name = 1;
+  repeated AccessInfo accessList = 2;
+}
+
 message HelloRequest {
   string name = 1;
   repeated string hobbies = 2;
@@ -53,24 +66,26 @@ message verifyLedgerResponse {
 }
 
 message createTagRequest {
-  
+  string name = 1;
+  repeated AccessInfo = 2;
 }
 message createTagResponse {
-
+  boolean success = 1;
 }
 
 message UpdateTagRequest {
-
+  string name = 1;
+  repeated AccessInfo = 2;
 }
 message UpdateTagResponse {
-
+  boolean success = 1;
 }
 
 message DeleteTagRequest {
-
+  string name = 1;
 }
 message DeleteTagResponse {
-
+  boolean success = 1;
 }
 
 service LoggingService {
@@ -80,4 +95,7 @@ service LoggingService {
   rpc getLedger(GetLedgerRequest) returns (GetLedgerResponse); 
   rpc verifyLog(VerifyLogRequest) returns (VerifyLogResponse);
   rpc verifyLedger(VerifyLogRequest) returns (VerifyLogResponse);
+  rpc createTag(createTagRequest) return (createTagResponse);
+  rpc updateTag(UpdateTagRequest) return (updateTagResponse);
+  rpc DeleteTagRequest(DeleteTagRequest) return (DeleteTagResponse);
 }
